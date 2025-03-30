@@ -70,7 +70,7 @@ function App() {
               <span className="text-space-nebula">{' />'}</span>
             </h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Word Weaver AI Project */}
               <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1">
                 <div className="h-48 bg-gray-700 overflow-hidden">
@@ -91,8 +91,8 @@ function App() {
                     <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Perplexity AI</span>
                   </div>
                   <div className="flex space-x-4">
-                    <a href="#" className="text-space-accent hover:text-space-nebula transition-colors">View Project</a>
-                    <a href="#" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                    <a href="https://wordweaverai.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">View Demo</a>
+                    <a href="https://github.com/MankyDanky/word-weaver" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
                   </div>
                 </div>
               </div>
@@ -117,8 +117,7 @@ function App() {
                     <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">TypeScript</span>
                   </div>
                   <div className="flex space-x-4">
-                    <a href="#" className="text-space-accent hover:text-space-nebula transition-colors">View Project</a>
-                    <a href="#" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                    <a href="https://github.com/MankyDanky/InFind" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
                   </div>
                 </div>
               </div>
@@ -144,8 +143,7 @@ function App() {
                     <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">IMGUI</span>
                   </div>
                   <div className="flex space-x-4">
-                    <a href="#" className="text-space-accent hover:text-space-nebula transition-colors">View Project</a>
-                    <a href="#" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                    <a href="https://github.com/MankyDanky/SpaceSim" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
                   </div>
                 </div>
               </div>
@@ -171,8 +169,7 @@ function App() {
                     <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Procedural Generation</span>
                   </div>
                   <div className="flex space-x-4">
-                    <a href="#" className="text-space-accent hover:text-space-nebula transition-colors">View Project</a>
-                    <a href="#" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                    <a href="https://github.com/MankyDanky/Ice-Knight" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
                   </div>
                 </div>
               </div>
