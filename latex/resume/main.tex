@@ -1,0 +1,236 @@
+%-------------------------
+% Resume in Latex
+% Author : Jake Gutierrez
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{tikz}
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{% 
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1) 
+                --++ (-0, 1.2) 
+                --++ (0.6, 0) 
+                --++ (0, -0.6) 
+                --++ (0.6, 0) 
+                --++ (0, -1);
+            \path[draw, 
+                line width = 0.5, 
+                rounded corners=0.5] 
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5) 
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1) 
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+    
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-6pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-4pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+% \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+%   \textbf{\href{http://sourabhbajaj.com/}{\Large Sourabh Bajaj}} & Email : \href{mailto:sourabh@sourabhbajaj.com}{sourabh@sourabhbajaj.com}\\
+%   \href{http://sourabhbajaj.com/}{http://www.sourabhbajaj.com} & Mobile : +1-123-456-7890 \\
+% \end{tabular*}
+
+\begin{center}
+    \textbf{\Huge \scshape Aadi Kulshrestha} \\ \vspace{1pt}
+    \small 416-857-6052 $|$ \href{mailto:aadi.kulsh@gmail.com}{\underline{aadi.kulsh@gmail.com}} $|$ 
+    \href{https://aadik.vercel.app}{\underline{https://aadik.vercel.app}} $|$
+    \href{https://github.com/mankydanky}{\underline{github.com/mankydanky}}
+\end{center}
+
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {University of Waterloo - 4.0 GPA 97.2\% CA}{Waterloo, ON}
+      {Bachelor of Science in Computer Science}{Sep, 2024 -- Apr, 2029}
+  \resumeSubHeadingListEnd
+
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Software Engineer Intern}{Jan 2025 - Apr 2025}
+      {PM Accelerator}{Miami, FL}
+      \resumeItemListStart
+        \resumeItem{Developed and maintained back-end services using \textbf{Node.js} and \textbf{Express}, integrating third party APIs to power AI-driven features while optimizing API performance for seamless front-end communication}
+        \resumeItem{Collaborated in \textbf{Agile/Scrum} teams, using \textbf{Git}, \textbf{GitHub}, and \textbf{CI/CD pipelines} to deploy production-ready features efficiently, testing backend functionality with \textbf{Postman}}
+        \resumeItem{Developed responsive web applications using \textbf{React}, \textbf{TypeScript}, and modern front-end frameworks to enhance user experience and interactivity}
+        \resumeItem{Worked with \textbf{RESTful} and \textbf{GraphQL APIs} to fetch and display data dynamically, ensuring seamless integration with machine learning backends}
+      \resumeItemListEnd
+      
+% -----------Multiple Positions Heading-----------
+%    \resumeSubSubheading
+%     {Software Engineer I}{Oct 2014 - Sep 2016}
+%     \resumeItemListStart
+%        \resumeItem{Apache Beam}
+%          {Apache Beam is a unified model for defining both batch and streaming data-parallel processing pipelines}
+%     \resumeItemListEnd
+%    \resumeSubHeadingListEnd
+%-------------------------------------------
+
+  \resumeSubHeadingListEnd
+
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\href{https://waterloostudyspots.vercel.app/}{\textbf{\underline{\ExternalLink Waterloo Study Spots}}} $|$ \emph{JavaScript, React, Node.js, Express, MongoDB}}{}
+          \resumeItemListStart
+            \resumeItem{Built a full-stack application using \textbf{Express}, \textbf{Node.js}, \textbf{React}, and \textbf{MongoDB}, enabling users to upload and review study spots, showcasing expertise in \textbf{MERN} stack development}
+            \resumeItem{Leveraged \textbf{MongoDB} for efficient data storage and retrieval, optimizing performance  and ensuring scalability}
+            \resumeItem{Implemented secure back-end functionality with robust \textbf{REST API} endpoints for handling user submissions, reviews, and real-time data retrieval}
+            \resumeItem{Deployed the application on Vercel with a streamlined \textbf{CI/CD pipeline}, automating build, test, and deployment processes for rapid and reliable delivery of updates}
+          \resumeItemListEnd
+        \resumeProjectHeading
+          {\href{https://kimei.vercel.app/}{\textbf{\underline{\ExternalLink Kimei}}}  $|$ \emph{Java, SpringBoot, React, TypeScript, PostgreSQL, Azure, OpenAI, AWS}}{}
+          \resumeItemListStart
+            \resumeItem{Designed and developed a full-stack application using \textbf{Spring Boot}, \textbf{React}, \textbf{TypeScript}, and \textbf{PostgreSQL}, showcasing expertise in both modern and traditional development frameworks and technologies}
+            \resumeItem{Implemented robust \textbf{CRUD} functionalities, ensuring efficient data handling for dynamic interactions}
+            \resumeItem{Utilized the \textbf{OpenAI API} to generate AI-powered cue cards while optimizing API calls for cost and performance}
+            \resumeItem{Integrated \textbf{Azure SQL} storage solutions to manage data, ensuring reliability and a seamless user experience}
+            \resumeItem{Deployed the containerized application using \textbf{Docker} and \textbf{AWS Elastic Container Service (ECS)} for scalable and efficient cloud deployment}
+          \resumeItemListEnd
+        \resumeProjectHeading
+          {\href{https://github.com/MankyDanky/Anidex-Tensorflow-Animal-Detection}{\textbf{\underline{\ExternalLink Anidex Tensorflow Animal Detection}}} $|$ \emph{Python TensorFlow, Django, React Native, TypeScript, OpenAI}}{}
+          \resumeItemListStart
+            \resumeItem{Developed a web and mobile app using \textbf{Django} and \textbf{React Native} to identify animals from images, achieving \textbf{95\%} classification accuracy with a \textbf{CNN} trained on a \textbf{custom dataset scraped via Python}}
+            \resumeItem{Implemented \textbf{real-time image processing}, enabling users to upload or capture photos and receive detailed animal descriptions via the \textbf{OpenAI API}}
+          \resumeItemListEnd
+        \resumeProjectHeading
+          {\href{https://mankydanky.itch.io/ice-knight}{\textbf{\underline{\ExternalLink Ice Knight}}} $|$ \emph{Unity, C\#, .NET}}{}
+          \resumeItemListStart
+            \resumeItem{Developed Ice Knight, an 8-bit dungeon crawler in \textbf{Unity} using \textbf{C\#} and the \textbf{.NET} framework, featuring beautiful dynamic lighting with the Unity Render Pipeline and particle effects that improve visuals}
+            \resumeItem{Competed in the UW 2025 Winter Game Jam, achieving \textbf{first place} in a section of \textbf{more than 30 people}}
+            \resumeItem{Implemented a procedurally generated dungeon using a custom algorithm, enhancing replayability}
+            \resumeItemListEnd
+        \resumeProjectHeading
+          {\href{https://github.com/MankyDanky/PhotoEditor}{\textbf{\underline{\ExternalLink C++ Photo Editor }}} $|$ \emph{C++, QT}}{}
+          \resumeItemListStart
+            \resumeItem{Developed an efficient photo editor in \textbf{C++} and \textbf{QT}, algorithmically modifying images with precision and speed}
+            \resumeItem{Optimized time complexity for real-time processing, showcasing expertise in memory management and computational efficiency}
+            \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+
+
+%
+%-----------PROGRAMMING SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Java, Python, C\#, C/C++, SQL, JavaScript, TypeScript, HTML/CSS, Bash} \\
+     \textbf{Frameworks}{: React, React Native, Expo, Node.js, Django, Spring, QT, .NET, Unity} \\
+     \textbf{Developer Tools}{: Git, Docker, Azure, AWS, GCP, VS Code, Visual Studio, VIM} \\
+     \textbf{Libraries}{: NumPy, Matplotlib, TensorFlow, Mongoose, WebSocket, Express} \\
+    }}
+ \end{itemize}
+
+
+%-------------------------------------------
+\end{document}

@@ -110,12 +110,13 @@ function App() {
               I love building unique and interesting software!
             </p>
             <div className="flex justify-center space-x-4">
-              <button className="px-6 py-3 bg-space-accent text-white rounded-lg hover:bg-indigo-600 transition-colors">
+              {/* Updated buttons with anchor links */}
+              <a href="#projects" className="px-6 py-3 bg-space-accent text-white rounded-lg hover:bg-indigo-600 transition-colors">
                 View My Work
-              </button>
-              <button className="px-6 py-3 border border-space-accent text-space-accent rounded-lg hover:bg-space-accent/10 transition-colors">
+              </a>
+              <a href="#contact" className="px-6 py-3 border border-space-accent text-space-accent rounded-lg hover:bg-space-accent/10 transition-colors">
                 Contact Me
-              </button>
+              </a>
             </div>
           </div>
         </section>
