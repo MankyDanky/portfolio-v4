@@ -1,10 +1,69 @@
+import React, { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import WaterBackground from './components/WaterBackground'
 import IceKnight from './assets/IceKnight.png'
 import InFind from './assets/InFind.png'
 import SpaceSim from './assets/SpaceSim.png'
 import WordWeaver from './assets/WordWeaver.png'
+import ProfileImage from './assets/me.png'
 
 function App() {
+  // Form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [formStatus, setFormStatus] = useState({
+    submitting: false,
+    success: null,
+    error: null
+  });
+  const form = useRef();
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+  };
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormStatus({ submitting: true, success: null, error: null });
+
+    // Use the direct send method that works on the website
+    emailjs.send(
+      'service_21b7wod',
+      'template_o38n3h6',   // Use the working template ID
+      {
+        user_name: formData.name,
+        user_email: formData.email,
+        message: formData.message,
+        to_email: 'aadi.kulsh@gmail.com'
+      },
+      'FEFtbri70HOoEoCrE'
+    )
+      .then(() => {
+        setFormStatus({
+          submitting: false,
+          success: 'Message sent successfully! I\'ll get back to you soon.',
+          error: null
+        });
+        setFormData({ name: '', email: '', message: '' });
+      }, (error) => {
+        console.error("Email error:", error);
+        setFormStatus({
+          submitting: false,
+          success: null,
+          error: 'Something went wrong. Please try again later.'
+        });
+      });
+  };
+
   return (
     <>
       <WaterBackground />
@@ -72,104 +131,120 @@ function App() {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Word Weaver AI Project */}
-              <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1">
+              <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1 flex flex-col h-full">
                 <div className="h-48 bg-gray-700 overflow-hidden">
                   <img src={WordWeaver} alt="Word Weaver AI" className="w-full h-full object-cover" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">Word Weaver AI</h3>
-                  <p className="text-space-star/70 mb-4">
-                    A sophisticated AI-powered essay generation platform built with Next.js and TypeScript. 
-                    Leverages Perplexity's cutting-edge Sonar model to incorporate real-time information and sources,
-                    delivering academically rigorous content. Features an advanced multi-stage workflow that generates,
-                    reviews, and refines essays through intelligent AI feedback loops.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Next.js</span>
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">TypeScript</span>
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">MongoDB</span>
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Perplexity AI</span>
+                <div className="p-6 flex flex-col flex-grow">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Word Weaver AI</h3>
+                    <p className="text-space-star/70 mb-4">
+                      A sophisticated AI-powered essay generation platform built with Next.js and TypeScript. 
+                      Leverages Perplexity's cutting-edge Sonar model to incorporate real-time information and sources,
+                      delivering academically rigorous content. Features an advanced multi-stage workflow that generates,
+                      reviews, and refines essays through intelligent AI feedback loops.
+                    </p>
                   </div>
-                  <div className="flex space-x-4">
-                    <a href="https://wordweaverai.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">View Demo</a>
-                    <a href="https://github.com/MankyDanky/word-weaver" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                  <div className="mt-auto">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Next.js</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">TypeScript</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">MongoDB</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Perplexity AI</span>
+                    </div>
+                    <div className="flex space-x-4">
+                      <a href="https://wordweaverai.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">View Demo</a>
+                      <a href="https://github.com/MankyDanky/word-weaver" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                    </div>
                   </div>
                 </div>
               </div>
               
               {/* InFind Project */}
-              <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1">
+              <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1 flex flex-col h-full">
                 <div className="h-48 bg-gray-700 overflow-hidden">
                   <img src={InFind} alt="InFind" className="w-full h-full object-cover" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">InFind</h3>
-                  <p className="text-space-star/70 mb-4">
-                    An award-winning influencer discovery platform developed for the 2025 Dreamwell Hackathon. 
-                    Integrates multiple social media APIs (YouTube, Facebook, Twitter) with OpenAI's language models
-                    to deliver AI-powered brand partnership recommendations. Features sophisticated analytics to match
-                    brands with ideal influencers based on audience demographics, engagement metrics, and content alignment.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">React</span>
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Express</span>
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Node.js</span>
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">TypeScript</span>
+                <div className="p-6 flex flex-col flex-grow">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">InFind</h3>
+                    <p className="text-space-star/70 mb-4">
+                      An innovative influencer discovery platform developed for the 2025 Dreamwell Hackathon. 
+                      Integrates multiple social media APIs (YouTube, Facebook, Twitter) with OpenAI's language models
+                      to deliver AI-powered brand partnership recommendations. Features sophisticated analytics to match
+                      brands with ideal influencers based on audience demographics, engagement metrics, and content alignment.
+                    </p>
                   </div>
-                  <div className="flex space-x-4">
-                    <a href="https://github.com/MankyDanky/InFind" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                  <div className="mt-auto">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">React</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Express</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Node.js</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">TypeScript</span>
+                    </div>
+                    <div className="flex space-x-4">
+                      <a href="https://github.com/MankyDanky/InFind" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                    </div>
                   </div>
                 </div>
               </div>
               
               {/* SpaceSim Project */}
-              <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1">
+              <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1 flex flex-col h-full">
                 <div className="h-48 bg-gray-700 overflow-hidden">
                   <img src={SpaceSim} alt="SpaceSim" className="w-full h-full object-cover" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">SpaceSim</h3>
-                  <p className="text-space-star/70 mb-4">
-                    A physically accurate solar system simulation engineered with C++ and OpenGL. 
-                    Implements advanced graphics techniques including custom-built bloom post-processing, 
-                    HDR rendering, and physically-based shading. Features scientifically accurate 
-                    planetary scaling, orbital mechanics, and celestial body rendering with an intuitive 
-                    IMGUI-powered interface for exploration control.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">C++</span>
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">OpenGL</span>
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">GLSL</span>
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">IMGUI</span>
+                <div className="p-6 flex flex-col flex-grow">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">SpaceSim</h3>
+                    <p className="text-space-star/70 mb-4">
+                      A physically accurate solar system simulation engineered with C++ and OpenGL. 
+                      Implements advanced graphics techniques including custom-built bloom post-processing, 
+                      HDR rendering, and physically-based shading. Features scientifically accurate 
+                      planetary scaling, orbital mechanics, and celestial body rendering with an intuitive 
+                      IMGUI-powered interface for exploration control.
+                    </p>
                   </div>
-                  <div className="flex space-x-4">
-                    <a href="https://github.com/MankyDanky/SpaceSim" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                  <div className="mt-auto">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">C++</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">OpenGL</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">GLSL</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">IMGUI</span>
+                    </div>
+                    <div className="flex space-x-4">
+                      <a href="https://github.com/MankyDanky/SpaceSim" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                    </div>
                   </div>
                 </div>
               </div>
               
               {/* Ice Knight Project */}
-              <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1">
+              <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1 flex flex-col h-full">
                 <div className="h-48 bg-gray-700 overflow-hidden">
                   <img src={IceKnight} alt="Ice Knight" className="w-full h-full object-cover" />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">Ice Knight</h3>
-                  <p className="text-space-star/70 mb-4">
-                    A visually striking 2D dungeon crawler developed in Unity with C#. 
-                    Features sophisticated procedural level generation using advanced algorithms for 
-                    endless, unique gameplay experiences. Implements custom lighting using Unity's 
-                    Universal Render Pipeline (URP) with dynamic shadows, volumetric fog, and 
-                    atmospheric particle effects that create an immersive fantasy environment.
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">C#</span>
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Unity</span>
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">URP</span>
-                    <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Procedural Generation</span>
+                <div className="p-6 flex flex-col flex-grow">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Ice Knight</h3>
+                    <p className="text-space-star/70 mb-4">
+                      A visually striking 2D dungeon crawler developed in Unity with C#. 
+                      Features sophisticated procedural level generation using advanced algorithms for 
+                      endless, unique gameplay experiences. Implements custom lighting using Unity's 
+                      Universal Render Pipeline (URP) with dynamic shadows, volumetric fog, and 
+                      atmospheric particle effects that create an immersive fantasy environment.
+                    </p>
                   </div>
-                  <div className="flex space-x-4">
-                    <a href="https://github.com/MankyDanky/Ice-Knight" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                  <div className="mt-auto">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">C#</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Unity</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">URP</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Procedural Generation</span>
+                    </div>
+                    <div className="flex space-x-4">
+                      <a href="https://github.com/MankyDanky/Ice-Knight" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -190,8 +265,11 @@ function App() {
               {/* Profile Image */}
               <div className="w-full lg:w-1/3 flex justify-center">
                 <div className="w-64 h-64 rounded-full bg-space-accent/20 border-2 border-space-accent overflow-hidden">
-                  {/* Add your image here */}
-                  <div className="w-full h-full bg-gray-700"></div>
+                  <img 
+                    src={ProfileImage} 
+                    alt="Aadi Kulshrestha" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
               
@@ -318,14 +396,18 @@ function App() {
                 <div className="bg-space-primary rounded-xl p-8 shadow-lg hover:shadow-space-accent/10 transition-all">
                   <h3 className="text-xl font-semibold mb-6">Get In Touch</h3>
                   
-                  <form>
+                  <form ref={form} onSubmit={handleSubmit}>
                     <div className="mb-4">
                       <label htmlFor="name" className="block text-space-star/80 mb-2">Name</label>
                       <input 
                         type="text" 
                         id="name" 
+                        name="user_name"
+                        value={formData.name}
+                        onChange={handleChange}
                         className="w-full bg-space-dark/80 border border-space-accent/20 rounded-lg px-4 py-3 focus:outline-none focus:border-space-accent transition-colors text-white"
-                        placeholder="Aadi Kulshrestha" 
+                        placeholder="Your Name" 
+                        required
                       />
                     </div>
                     
@@ -334,8 +416,12 @@ function App() {
                       <input 
                         type="email" 
                         id="email" 
+                        name="user_email"
+                        value={formData.email}
+                        onChange={handleChange}
                         className="w-full bg-space-dark/80 border border-space-accent/20 rounded-lg px-4 py-3 focus:outline-none focus:border-space-accent transition-colors text-white"
                         placeholder="your.email@example.com" 
+                        required
                       />
                     </div>
                     
@@ -343,14 +429,34 @@ function App() {
                       <label htmlFor="message" className="block text-space-star/80 mb-2">Message</label>
                       <textarea 
                         id="message" 
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
                         rows="5"
                         className="w-full bg-space-dark/80 border border-space-accent/20 rounded-lg px-4 py-3 focus:outline-none focus:border-space-accent transition-colors text-white resize-none"
                         placeholder="Your message here..." 
+                        required
                       ></textarea>
                     </div>
                     
-                    <button type="submit" className="bg-space-accent hover:bg-indigo-600 text-white px-6 py-3 rounded-lg transition-colors w-full">
-                      Send Message
+                    {formStatus.success && (
+                      <div className="mb-4 p-3 bg-green-500/20 border border-green-500 rounded-lg text-green-300">
+                        {formStatus.success}
+                      </div>
+                    )}
+                    
+                    {formStatus.error && (
+                      <div className="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-300">
+                        {formStatus.error}
+                      </div>
+                    )}
+                    
+                    <button 
+                      type="submit" 
+                      disabled={formStatus.submitting}
+                      className={`bg-space-accent hover:bg-indigo-600 text-white px-6 py-3 rounded-lg transition-colors w-full ${formStatus.submitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                    >
+                      {formStatus.submitting ? 'Sending...' : 'Send Message'}
                     </button>
                   </form>
                 </div>
