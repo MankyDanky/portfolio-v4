@@ -1,11 +1,14 @@
-import HyperdriveBackground from './components/HyperdriveBackground'
+import WaterBackground from './components/WaterBackground'
 
 function App() {
   return (
     <>
-      <HyperdriveBackground />
+      <WaterBackground />
       
-      <div className="min-h-screen bg-transparent text-white relative z-0">
+      {/* Dark overlay with blur for better readability */}
+      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-0 pointer-events-none"></div>
+      
+      <div className="min-h-screen bg-transparent text-white relative z-10">
         {/* Navigation */}
         <nav className="fixed top-0 w-full bg-space-dark/80 backdrop-blur-sm z-50">
           <div className="container mx-auto px-4 py-4 flex justify-between items-center">

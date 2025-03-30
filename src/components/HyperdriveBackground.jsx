@@ -4,21 +4,27 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import * as THREE from 'three'
 
 const StarField = () => {
-  const meshRef = useRef()
-  const count = 800 // Number of capsules
+  const linesRef = useRef()
   
-  // Create matrices for instanced capsules
-  const matrices = useMemo(() => new Array(count).fill().map(() => new THREE.Matrix4()), [count])
-  const velocities = useMemo(() => [], [])
-  const originalLengths = useMemo(() => [], [])
-  
-  // Initialize capsules
-  useMemo(() => {
-    const dummy = new THREE.Object3D()
+  // Create lines with varying lengths and angles
+  const [positions, velocities, originalLengths, colors] = useMemo(() => {
+    const positions = []
+    const velocities = []
+    const originalLengths = []
+    const colors = []
+    const count = 1000
+    
+    // Front color (white)
+    const frontColor = new THREE.Color('#ffe2ad')
+    // Back color (orangish)
+    const backColor = new THREE.Color('#ffffff')
     
     for (let i = 0; i < count; i++) {
       // Create radial distribution
       const angle = Math.random() * Math.PI * 2
+      
+      // Use square root distribution to distribute stars more evenly visually
+      // This creates more stars in the outer regions than a linear distribution
       const radius = Math.sqrt(Math.random()) * 5 + 0.2
       
       // Calculate x and y position
@@ -28,96 +34,122 @@ const StarField = () => {
       // Z position (depth)
       const z = -20 + Math.random() * 15
       
-      // Calculate capsule length - faster capsules are longer
+      // Calculate line length - faster lines are longer
       const speed = Math.random() * 0.15 + 0.05
       const length = speed * 5
       originalLengths.push(length)
       
-      // Set position
-      dummy.position.set(x, y, z)
-      
-      // Calculate rotation to point toward camera
       // Bias toward camera direction (z-axis)
+      // Higher zBias = more directly toward camera
       const zBias = 0.8
       
       // Calculate direction vector with z-bias
       const directionX = x * (1 - zBias) * (0.8 + Math.random() * 0.4)
       const directionY = y * (1 - zBias) * (0.8 + Math.random() * 0.4) 
-      const directionZ = length * zBias
+      const directionZ = length * zBias // Heavily weighted toward Z (camera)
       
-      // Make the capsule look at the target point
-      dummy.lookAt(x + directionX, y + directionY, z + directionZ)
+      // Normalize vector length
+      const totalLength = Math.sqrt(directionX*directionX + directionY*directionY + directionZ*directionZ)
+      const normalizedDX = (directionX / totalLength) * length
+      const normalizedDY = (directionY / totalLength) * length
+      const normalizedDZ = (directionZ / totalLength) * length
       
-      // Rotate 90 degrees to align capsule with direction of travel
-      dummy.rotateX(Math.PI / 2)
+      // Add start and end points of line
+      positions.push(
+        x, y, z,                                   // Starting point
+        x + normalizedDX, y + normalizedDY, z + normalizedDZ  // End point
+      )
       
-      // Scale the capsule - thicker for faster ones
-      const thickness = 0.01 + speed * 0.2
-      dummy.scale.set(thickness, thickness, length)
+      // Add colors - front (white) to back (orange)
+      frontColor.toArray(colors, colors.length)
+      backColor.toArray(colors, colors.length)
       
-      // Update matrix
-      dummy.updateMatrix()
-      matrices[i].copy(dummy.matrix)
-      
-      // Store velocity
       velocities.push(speed)
     }
-  }, [count, matrices, originalLengths, velocities])
-  
-  // Create dummy object for matrix manipulation
-  const dummy = useMemo(() => new THREE.Object3D(), [])
+    
+    return [
+      new Float32Array(positions), 
+      velocities, 
+      originalLengths, 
+      new Float32Array(colors)
+    ]
+  }, [])
 
   useFrame(() => {
-    if (!meshRef.current) return
+    const positions = linesRef.current.geometry.attributes.position.array
     
-    // Update each capsule
-    for (let i = 0; i < count; i++) {
-      // Extract position and rotation from matrix
-      dummy.matrix.copy(matrices[i])
-      dummy.matrix.decompose(dummy.position, dummy.quaternion, dummy.scale)
+    // Update each line segment
+    for (let i = 0; i < positions.length; i += 6) {
+      const index = Math.floor(i / 6)
+      const speed = velocities[index]
       
-      // Move toward camera
-      dummy.position.z += velocities[i]
+      // Move both start and end points toward camera
+      positions[i + 2] += speed // Move start point z
+      positions[i + 5] += speed // Move end point z
       
-      // If this capsule has moved past the camera, reset it
-      if (dummy.position.z > 5) {
-        // Reset position
+      // If this line segment has moved past the camera, reset it
+      if (positions[i + 2] > 5) {
         const angle = Math.random() * Math.PI * 2
+        
+        // Use square root distribution for resets too
         const radius = Math.sqrt(Math.random()) * 5 + 0.2
         
         const x = Math.cos(angle) * radius
         const y = Math.sin(angle) * radius
         const z = -20
         
-        dummy.position.set(x, y, z)
+        // Reset start point
+        positions[i] = x
+        positions[i + 1] = y
+        positions[i + 2] = z
         
-        // Bias toward camera direction
+        // Bias toward camera direction (z-axis)
         const zBias = 0.8
         
-        // Calculate direction
+        // Calculate new direction with z-bias
         const directionX = x * (1 - zBias) * (0.8 + Math.random() * 0.4)
-        const directionY = y * (1 - zBias) * (0.8 + Math.random() * 0.4) 
-        const directionZ = originalLengths[i] * zBias
+        const directionY = y * (1 - zBias) * (0.8 + Math.random() * 0.4)
+        const directionZ = originalLengths[index] * zBias
         
-        // Make the capsule look at the target point
-        dummy.lookAt(x + directionX, y + directionY, z + directionZ)
-        dummy.rotateX(Math.PI / 2)
+        // Normalize vector length
+        const totalLength = Math.sqrt(directionX*directionX + directionY*directionY + directionZ*directionZ)
+        const normalizedDX = (directionX / totalLength) * originalLengths[index]
+        const normalizedDY = (directionY / totalLength) * originalLengths[index]
+        const normalizedDZ = (directionZ / totalLength) * originalLengths[index]
+        
+        // Reset end point
+        positions[i + 3] = x + normalizedDX
+        positions[i + 4] = y + normalizedDY
+        positions[i + 5] = z + normalizedDZ
       }
-      
-      // Update matrix and apply to instanced mesh
-      dummy.updateMatrix()
-      matrices[i].copy(dummy.matrix)
-      meshRef.current.setMatrixAt(i, matrices[i])
     }
     
-    meshRef.current.instanceMatrix.needsUpdate = true
+    linesRef.current.geometry.attributes.position.needsUpdate = true
   })
 
   return (
-    <instancedMesh ref={meshRef} args={[null, null, count]}>
-      <capsuleGeometry args={[0.05, 1.0]} />
-      <meshBasicMaterial color="#ffffff" opacity={0.8} transparent={true} />
-    </instancedMesh>
+    <lineSegments ref={linesRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={positions.length / 3}
+          array={positions}
+          itemSize={3}
+        />
+        <bufferAttribute
+          attach="attributes-color"
+          count={colors.length / 3}
+          array={colors}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <lineBasicMaterial
+        opacity={0.8}
+        transparent={true}
+        linewidth={1}
+        vertexColors={true}
+      />
+    </lineSegments>
   )
 }
 
@@ -129,9 +161,9 @@ const HyperdriveBackground = () => {
         <StarField />
         <EffectComposer>
           <Bloom 
-            intensity={1.5}
-            luminanceThreshold={0.1}
-            luminanceSmoothing={0.9}
+            intensity={1.5} 
+            luminanceThreshold={0.1} 
+            luminanceSmoothing={0.9} 
             height={300}
           />
         </EffectComposer>
