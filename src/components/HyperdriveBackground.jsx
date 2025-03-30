@@ -1,5 +1,6 @@
 import { useRef, useMemo } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
+import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import * as THREE from 'three'
 
 const StarField = () => {
@@ -37,7 +38,6 @@ const StarField = () => {
       const zBias = 0.8
       
       // Calculate direction vector with z-bias
-      // This weighted approach will make more lines point toward camera
       const directionX = x * (1 - zBias) * (0.8 + Math.random() * 0.4)
       const directionY = y * (1 - zBias) * (0.8 + Math.random() * 0.4) 
       const directionZ = length * zBias // Heavily weighted toward Z (camera)
@@ -124,7 +124,7 @@ const StarField = () => {
       </bufferGeometry>
       <lineBasicMaterial
         color="#ffffff"
-        opacity={0.7}
+        opacity={0.8}
         transparent={true}
         linewidth={1}
         vertexColors={false}
@@ -139,6 +139,14 @@ const HyperdriveBackground = () => {
       <Canvas style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} camera={{ position: [0, 0, 1], fov: 80 }}>
         <color attach="background" args={['#050914']} />
         <StarField />
+        <EffectComposer>
+          <Bloom 
+            intensity={1.5} 
+            luminanceThreshold={0.1} 
+            luminanceSmoothing={0.9} 
+            height={300}
+          />
+        </EffectComposer>
       </Canvas>
     </div>
   )
