@@ -8,8 +8,8 @@ const WaterSurface = () => {
   
   // Configuration
   const gridSize = 40 // Number of segments
-  const width = 25 // Width of the plane
-  const height = 20 // Height of the plane
+  const width = 100 // Width of the plane
+  const height = 30 // Height of the plane
   
   // Create grid geometry
   const [vertices, indices] = useMemo(() => {
@@ -22,8 +22,8 @@ const WaterSurface = () => {
         const xPos = (x / gridSize - 0.5) * width
         const yPos = (y / gridSize - 0.5) * height
         
-        // Initial z position (slight randomness for more natural look)
-        const zPos = Math.random() * 0.1
+        // Initial flat surface (no randomness)
+        const zPos = 0
         
         vertices.push(xPos, yPos, zPos)
       }
@@ -51,11 +51,16 @@ const WaterSurface = () => {
     ]
   }, [gridSize, width, height])
   
+  // Original vertex positions
+  const originalPositions = useMemo(() => {
+    return vertices.slice()
+  }, [vertices])
+  
   // Animation parameters
   const waveParams = useMemo(() => ({
-    speed: 0.3,
-    amplitude: 0.2,
-    frequency: 0.15,
+    speed: 0.8,           
+    amplitude: 0.5,       
+    frequency: 0.2,       
     time: 0
   }), [])
   
@@ -68,26 +73,28 @@ const WaterSurface = () => {
     // Update time for wave animation
     waveParams.time += delta * waveParams.speed
     
-    // Update each vertex
+    // Update each vertex using original positions (prevents distortion over time)
     for (let i = 0; i < positions.length; i += 3) {
-      const x = positions[i]
-      const y = positions[i + 1]
+      // Get the original x and y values
+      const x = originalPositions[i]
+      const y = originalPositions[i + 1]
       
       // Create multiple overlapping waves for more interesting pattern
       const wave1 = Math.sin(x * waveParams.frequency + waveParams.time) * 
-                    Math.cos(y * waveParams.frequency + waveParams.time) * waveParams.amplitude
+                    Math.cos(y * waveParams.frequency * 0.8 + waveParams.time * 0.9) * 
+                    waveParams.amplitude
       
-      const wave2 = Math.sin((x + y) * waveParams.frequency * 0.8 + waveParams.time * 1.3) * 
+      const wave2 = Math.sin((x * 1.3 + y * 0.7) * waveParams.frequency + waveParams.time * 1.2) * 
+                    waveParams.amplitude * 0.4
+                    
+      const wave3 = Math.sin(y * waveParams.frequency * 1.5 + waveParams.time * 0.7) *
                     waveParams.amplitude * 0.3
       
       // Combine waves
-      positions[i + 2] = wave1 + wave2
+      positions[i + 2] = wave1 + wave2 + wave3
     }
     
     meshRef.current.geometry.attributes.position.needsUpdate = true
-    
-    // Slowly rotate the entire water surface
-    meshRef.current.rotation.z += delta * 0.03
   })
   
   return (
