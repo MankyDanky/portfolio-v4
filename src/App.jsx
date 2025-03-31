@@ -68,8 +68,8 @@ function App() {
     <>
       <WaterBackground />
       
-      {/* Dark overlay with blur for better readability */}
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-0 pointer-events-none"></div>
+      {/* Dark overlay with black for better readability */}
+      <div className="fixed inset-0 bg-black/10 backdrop-blur-sm z-0 pointer-events-none"></div>
       
       <div className="min-h-screen bg-transparent text-white relative z-10">
         {/* Navigation */}
