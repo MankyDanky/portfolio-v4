@@ -244,7 +244,12 @@ function App() {
                       <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Procedural Generation</span>
                     </div>
                     <div className="flex space-x-4">
-                      <a href="https://github.com/MankyDanky/Ice-Knight" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                      <a href="https://mankydanky.itch.io/ice-knight" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">
+                        View Demo
+                      </a>
+                      <a href="https://github.com/MankyDanky/Ice-Knight" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">
+                        Source Code
+                      </a>
                     </div>
                   </div>
                 </div>
