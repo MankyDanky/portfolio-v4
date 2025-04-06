@@ -123,7 +123,7 @@ const WaterSurface = () => {
 
 const WaterBackground = () => {
   return (
-    <div className="fixed top-0 left-0 w-full h-full -z-10" style={{ position: 'fixed', zIndex: -10 }}>
+    <div className="fixed top-0 left-0 w-full h-full -z-10" style={{ position: 'fixed', zIndex: -10, backgroundColor: '#000000' }}>
       <Canvas style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} camera={{ position: [0, 0, 10], fov: 60 }}>
         <color attach="background" args={['#050914']} />
         <WaterSurface />
