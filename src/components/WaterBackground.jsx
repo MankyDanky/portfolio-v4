@@ -3,6 +3,53 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import * as THREE from 'three'
 
+// Vertex shader for water animation
+const waterVertexShader = `
+  uniform float uTime;
+  uniform float uAmplitude;
+  uniform float uFrequency;
+  uniform float uSpeed;
+  varying vec3 vPosition;
+  
+  void main() {
+    // Original position
+    vec3 pos = position;
+    
+    // Create multiple overlapping waves
+    float wave1 = sin(position.x * uFrequency + uTime * uSpeed) * 
+                 cos(position.y * uFrequency * 0.8 + uTime * uSpeed * 0.9) * 
+                 uAmplitude;
+    
+    float wave2 = sin((position.x * 1.3 + position.y * 0.7) * uFrequency + uTime * uSpeed * 1.2) * 
+                 uAmplitude * 0.4;
+                 
+    float wave3 = sin(position.y * uFrequency * 1.5 + uTime * uSpeed * 0.7) *
+                 uAmplitude * 0.3;
+    
+    // Apply waves to z-position
+    pos.z = wave1 + wave2 + wave3;
+    
+    // Pass position to fragment shader
+    vPosition = pos;
+    
+    // Standard transformations
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+  }
+`
+
+// Simple fragment shader
+const waterFragmentShader = `
+  uniform vec3 diffuse;
+  uniform float opacity;
+  varying vec3 vPosition;
+  
+  void main() {
+    // Simple color based on position for a water-like effect
+    vec3 color = diffuse;
+    gl_FragColor = vec4(color, opacity);
+  }
+`
+
 const WaterSurface = () => {
   const meshRef = useRef()
   
@@ -11,121 +58,53 @@ const WaterSurface = () => {
   const width = 100 // Width of the plane
   const height = 30 // Height of the plane
   
-  // Create grid geometry
-  const [vertices, indices] = useMemo(() => {
-    const vertices = []
-    const indices = []
-    
-    // Create vertices
-    for (let y = 0; y <= gridSize; y++) {
-      for (let x = 0; x <= gridSize; x++) {
-        const xPos = (x / gridSize - 0.5) * width
-        const yPos = (y / gridSize - 0.5) * height
-        
-        // Initial flat surface (no randomness)
-        const zPos = 0
-        
-        vertices.push(xPos, yPos, zPos)
-      }
-    }
-    
-    // Create indices for wireframe
-    for (let y = 0; y < gridSize; y++) {
-      for (let x = 0; x < gridSize; x++) {
-        const a = x + y * (gridSize + 1)
-        const b = x + 1 + y * (gridSize + 1)
-        const c = x + (y + 1) * (gridSize + 1)
-        const d = x + 1 + (y + 1) * (gridSize + 1)
-        
-        // First triangle
-        indices.push(a, b, c)
-        
-        // Second triangle
-        indices.push(b, d, c)
-      }
-    }
-    
-    return [
-      new Float32Array(vertices),
-      new Uint16Array(indices)
-    ]
+  // Create plane geometry
+  const geometry = useMemo(() => {
+    return new THREE.PlaneGeometry(width, height, gridSize, gridSize)
   }, [gridSize, width, height])
   
-  // Original vertex positions
-  const originalPositions = useMemo(() => {
-    return vertices.slice()
-  }, [vertices])
+  // Set up uniforms for the shader
+  const uniforms = useRef({
+    uTime: { value: 0 },
+    uAmplitude: { value: 0.5 },
+    uFrequency: { value: 0.2 },
+    uSpeed: { value: 0.8 },
+    diffuse: { value: new THREE.Color("#4a80d9") },
+    opacity: { value: 0.7 }
+  }).current
   
-  // Animation parameters
-  const waveParams = useMemo(() => ({
-    speed: 0.8,           
-    amplitude: 0.5,       
-    frequency: 0.2,       
-    time: 0
-  }), [])
+  // Material with custom shaders
+  const material = useMemo(() => {
+    return new THREE.ShaderMaterial({
+      vertexShader: waterVertexShader,
+      fragmentShader: waterFragmentShader,
+      wireframe: true,
+      transparent: true,
+      uniforms: uniforms
+    })
+  }, [uniforms])
   
-  // Update water surface on each frame
+  // Update time uniform each frame
   useFrame((state, delta) => {
-    if (!meshRef.current) return
-    
-    const positions = meshRef.current.geometry.attributes.position.array
-    
-    // Update time for wave animation
-    waveParams.time += delta * waveParams.speed
-    
-    // Update each vertex using original positions (prevents distortion over time)
-    for (let i = 0; i < positions.length; i += 3) {
-      // Get the original x and y values
-      const x = originalPositions[i]
-      const y = originalPositions[i + 1]
-      
-      // Create multiple overlapping waves for more interesting pattern
-      const wave1 = Math.sin(x * waveParams.frequency + waveParams.time) * 
-                    Math.cos(y * waveParams.frequency * 0.8 + waveParams.time * 0.9) * 
-                    waveParams.amplitude
-      
-      const wave2 = Math.sin((x * 1.3 + y * 0.7) * waveParams.frequency + waveParams.time * 1.2) * 
-                    waveParams.amplitude * 0.4
-                    
-      const wave3 = Math.sin(y * waveParams.frequency * 1.5 + waveParams.time * 0.7) *
-                    waveParams.amplitude * 0.3
-      
-      // Combine waves
-      positions[i + 2] = wave1 + wave2 + wave3
-    }
-    
-    meshRef.current.geometry.attributes.position.needsUpdate = true
+    uniforms.uTime.value += delta
   })
   
   return (
-    <mesh ref={meshRef} rotation={[-Math.PI/3, 0, 0]} position={[0, -2, 0]}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={vertices.length / 3}
-          array={vertices}
-          itemSize={3}
-        />
-        <bufferAttribute 
-          attach="index"
-          array={indices} 
-        />
-      </bufferGeometry>
-      <meshBasicMaterial 
-        color="#4a80d9" 
-        wireframe={true}
-        transparent={true}
-        opacity={0.7}
-      />
-    </mesh>
+    <mesh 
+      ref={meshRef} 
+      rotation={[-Math.PI/3, 0, 0]} 
+      position={[0, -2, 0]}
+      geometry={geometry}
+      material={material}
+    />
   )
 }
 
 const WaterBackground = () => {
   return (
-    <div className="fixed top-0 left-0 w-full h-full -z-10" style={{ position: 'fixed', zIndex: -10, backgroundColor: '#000000' }}>
+    <div className="fixed top-0 left-0 w-full h-full -z-10" style={{ position: 'fixed', zIndex: -10 }}>
       <Canvas style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} camera={{ position: [0, 0, 10], fov: 60 }}>
-        <color attach="background" args={['#050914']} />
+        <color attach="background" args={['#000000']} />
         <WaterSurface />
         <EffectComposer>
           <Bloom 
