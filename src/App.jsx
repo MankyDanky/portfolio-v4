@@ -95,7 +95,7 @@ function App() {
       <WaterBackground />
       
       {/* Dark overlay with black for better readability */}
-      <div className="fixed inset-0 bg-black/10 backdrop-blur-sm z-0 pointer-events-none"></div>
+      <div className="fixed inset-0 bg-black/50 z-0 pointer-events-none"></div>
       
       <div className="min-h-screen bg-transparent text-white relative z-10">
         {/* Navigation */}
@@ -318,7 +318,7 @@ function App() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-20 bg-space-dark/30 backdrop-blur-sm">
+        <section id="about" className="py-20 bg-space-dark/30">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-12 text-center">
               <span className="text-space-nebula">{'<'}</span>
