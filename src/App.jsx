@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import WaterBackground from './components/WaterBackground'
 import IceKnight from './assets/IceKnight.png'
@@ -20,6 +20,32 @@ function App() {
     error: null
   });
   const form = useRef();
+
+  // Animation states for hero section
+  const [animateHero, setAnimateHero] = useState({
+    title: false,
+    name: false,
+    subtitle: false,
+    description: false,
+    buttons: false
+  });
+
+  // Trigger animations on component mount with staggered timing
+  useEffect(() => {
+    const animationSequence = [
+      { element: 'title', delay: 300 },
+      { element: 'name', delay: 500 },
+      { element: 'subtitle', delay: 700 },
+      { element: 'description', delay: 900 },
+      { element: 'buttons', delay: 1100 }
+    ];
+
+    animationSequence.forEach(({ element, delay }) => {
+      setTimeout(() => {
+        setAnimateHero(prev => ({ ...prev, [element]: true }));
+      }, delay);
+    });
+  }, []);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -96,21 +122,54 @@ function App() {
           </div>
         </nav>
 
-        {/* Hero Section */}
+        {/* Hero Section with animations */}
         <section id="home" className="min-h-screen flex items-center justify-center pt-20">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="text-space-star">Hello, I'm </span>
-              <span className="text-space-accent">Aadi Kulshrestha</span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 overflow-hidden">
+              <span 
+                className={`text-space-star inline-block transform transition-all duration-700 ease-out ${
+                  animateHero.title 
+                    ? 'translate-y-0 opacity-100' 
+                    : 'translate-y-8 opacity-0'
+                }`}
+              >
+                Hello, I'm 
+              </span>{' '}
+              <span 
+                className={`text-space-accent inline-block transform transition-all duration-700 ease-out ${
+                  animateHero.name 
+                    ? 'translate-y-0 opacity-100' 
+                    : 'translate-y-8 opacity-0'
+                }`}
+              >
+                Aadi Kulshrestha
+              </span>
             </h1>
-            <h2 className="text-2xl md:text-3xl mb-8 text-space-star/90">
+            <h2 
+              className={`text-2xl md:text-3xl mb-8 text-space-star/90 transform transition-all duration-700 ease-out ${
+                animateHero.subtitle 
+                  ? 'translate-y-0 opacity-100' 
+                  : 'translate-y-8 opacity-0'
+              }`}
+            >
               Full Stack Developer
             </h2>
-            <p className="text-lg max-w-2xl mx-auto mb-8 text-space-star/80">
+            <p 
+              className={`text-lg max-w-2xl mx-auto mb-8 text-space-star/80 transform transition-all duration-700 ease-out ${
+                animateHero.description 
+                  ? 'translate-y-0 opacity-100' 
+                  : 'translate-y-8 opacity-0'
+              }`}
+            >
               I love building unique and interesting software!
             </p>
-            <div className="flex justify-center space-x-4">
-              {/* Updated buttons with anchor links */}
+            <div 
+              className={`flex justify-center space-x-4 transform transition-all duration-700 ease-out ${
+                animateHero.buttons 
+                  ? 'translate-y-0 opacity-100' 
+                  : 'translate-y-8 opacity-0'
+              }`}
+            >
               <a href="#projects" className="px-6 py-3 bg-space-accent text-white rounded-lg hover:bg-indigo-600 transition-colors">
                 View My Work
               </a>
