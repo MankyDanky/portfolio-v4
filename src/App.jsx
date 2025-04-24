@@ -6,6 +6,7 @@ import InFind from './assets/InFind.png'
 import SpaceSim from './assets/SpaceSim.png'
 import WordWeaver from './assets/WordWeaver.png'
 import ProfileImage from './assets/me.png'
+import RacezIO from './assets/Racez.io.png'
 
 function App() {
   // Form state
@@ -307,6 +308,40 @@ function App() {
                         View Demo
                       </a>
                       <a href="https://github.com/MankyDanky/Ice-Knight" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">
+                        Source Code
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Racez.io Project */}
+              <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1 flex flex-col h-full">
+                <div className="h-48 bg-gray-700 overflow-hidden">
+                  <img src={RacezIO} alt="Racez.io" className="w-full h-full object-cover" />
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Racez.io</h3>
+                    <p className="text-space-star/70 mb-4">
+                      A real-time 3D multiplayer racing game built for the web. Implements advanced 
+                      networking architecture using WebRTC via Peer.js for low-latency P2P connections, 
+                      with a Django backend that maps peer IDs to simplified party codes. Features 
+                      a custom physics engine with precise collision detection, and vehicle dynamics simulation.
+                    </p>
+                  </div>
+                  <div className="mt-auto">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Three.js</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Peer.js</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Django</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">JavaScript</span>
+                    </div>
+                    <div className="flex space-x-4">
+                      <a href="https://racez.io" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">
+                        View Demo
+                      </a>
+                      <a href="https://github.com/MankyDanky/web-racing" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">
                         Source Code
                       </a>
                     </div>
