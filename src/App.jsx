@@ -7,6 +7,7 @@ import SpaceSim from './assets/SpaceSim.png'
 import WordWeaver from './assets/WordWeaver.png'
 import ProfileImage from './assets/me.png'
 import RacezIO from './assets/Racez.io.png'
+import UWSpots from './assets/UWSpots.png'
 
 function App() {
   // Form state
@@ -191,60 +192,33 @@ function App() {
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Word Weaver AI Project */}
+              {/* UW Spots Project */}
               <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1 flex flex-col h-full">
                 <div className="h-48 bg-gray-700 overflow-hidden">
-                  <img src={WordWeaver} alt="Word Weaver AI" className="w-full h-full object-cover" />
+                  <img src={UWSpots} alt="UW Spots" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Word Weaver AI</h3>
+                    <h3 className="text-xl font-semibold mb-2">UW Spots</h3>
                     <p className="text-space-star/70 mb-4">
-                      A sophisticated AI-powered essay generation platform built with Next.js and TypeScript. 
-                      Leverages Perplexity's cutting-edge Sonar model to incorporate real-time information and sources,
-                      delivering academically rigorous content. Features an advanced multi-stage workflow that generates,
-                      reviews, and refines essays through intelligent AI feedback loops.
-                    </p>
-                  </div>
-                  <div className="mt-auto">
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Next.js</span>
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">TypeScript</span>
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">MongoDB</span>
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Perplexity AI</span>
-                    </div>
-                    <div className="flex space-x-4">
-                      <a href="https://wordweaverai.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">View Demo</a>
-                      <a href="https://github.com/MankyDanky/word-weaver" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* InFind Project */}
-              <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1 flex flex-col h-full">
-                <div className="h-48 bg-gray-700 overflow-hidden">
-                  <img src={InFind} alt="InFind" className="w-full h-full object-cover" />
-                </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2">InFind</h3>
-                    <p className="text-space-star/70 mb-4">
-                      An innovative influencer discovery platform developed for the 2025 Dreamwell Hackathon. 
-                      Integrates multiple social media APIs (YouTube, Facebook, Twitter) with OpenAI's language models
-                      to deliver AI-powered brand partnership recommendations. Features sophisticated analytics to match
-                      brands with ideal influencers based on audience demographics, engagement metrics, and content alignment.
+                      A comprehensive study spot discovery platform for University of Waterloo students.
+                      Built with FastAPI, React, SQLAlchemy and Supabase to create a seamless user experience.
+                      Features include fuzzy search algorithms for intuitive spot-finding, advanced filtering,
+                      user-generated content with study spot submissions, community reviews and ratings,
+                      and customizable user profiles with favorite spots and contribution history.
                     </p>
                   </div>
                   <div className="mt-auto">
                     <div className="flex flex-wrap gap-2 mb-4">
                       <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">React</span>
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Express</span>
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Node.js</span>
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">TypeScript</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">FastAPI</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">SQLAlchemy</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Supabase</span>
                     </div>
                     <div className="flex space-x-4">
-                      <a href="https://github.com/MankyDanky/InFind" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                      <a href="https://uwspots.ca" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">
+                        View Demo
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -275,6 +249,36 @@ function App() {
                     </div>
                     <div className="flex space-x-4">
                       <a href="https://github.com/MankyDanky/SpaceSim" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Word Weaver AI Project */}
+              <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1 flex flex-col h-full">
+                <div className="h-48 bg-gray-700 overflow-hidden">
+                  <img src={WordWeaver} alt="Word Weaver AI" className="w-full h-full object-cover" />
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">Word Weaver AI</h3>
+                    <p className="text-space-star/70 mb-4">
+                      A sophisticated AI-powered essay generation platform built with Next.js and TypeScript. 
+                      Leverages Perplexity's cutting-edge Sonar model to incorporate real-time information and sources,
+                      delivering academically rigorous content. Features an advanced multi-stage workflow that generates,
+                      reviews, and refines essays through intelligent AI feedback loops.
+                    </p>
+                  </div>
+                  <div className="mt-auto">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Next.js</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">TypeScript</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">MongoDB</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Perplexity AI</span>
+                    </div>
+                    <div className="flex space-x-4">
+                      <a href="https://wordweaverai.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">View Demo</a>
+                      <a href="https://github.com/MankyDanky/word-weaver" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
                     </div>
                   </div>
                 </div>
@@ -344,6 +348,35 @@ function App() {
                       <a href="https://github.com/MankyDanky/web-racing" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">
                         Source Code
                       </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* InFind Project */}
+              <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1 flex flex-col h-full">
+                <div className="h-48 bg-gray-700 overflow-hidden">
+                  <img src={InFind} alt="InFind" className="w-full h-full object-cover" />
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2">InFind</h3>
+                    <p className="text-space-star/70 mb-4">
+                      An innovative influencer discovery platform developed for the 2025 Dreamwell Hackathon. 
+                      Integrates multiple social media APIs (YouTube, Facebook, Twitter) with OpenAI's language models
+                      to deliver AI-powered brand partnership recommendations. Features sophisticated analytics to match
+                      brands with ideal influencers based on audience demographics, engagement metrics, and content alignment.
+                    </p>
+                  </div>
+                  <div className="mt-auto">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">React</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Express</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Node.js</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">TypeScript</span>
+                    </div>
+                    <div className="flex space-x-4">
+                      <a href="https://github.com/MankyDanky/InFind" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
                     </div>
                   </div>
                 </div>
