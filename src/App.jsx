@@ -10,7 +10,15 @@ import RacezIO from './assets/Racez.io.png'
 import UWSpots from './assets/UWSpots.png'
 
 function App() {
-  // Form state
+  // Add state for mobile menu
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  // Toggle mobile menu function
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+  
+  // Existing state for form and animations
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -101,28 +109,108 @@ function App() {
       
       <div className="min-h-screen bg-transparent text-white relative z-10">
         {/* Navigation */}
-        <nav className="fixed top-0 w-full bg-space-dark/80 backdrop-blur-sm z-50">
-          <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div className="text-xl font-bold text-space-star">
-              <span className="text-space-nebula">{'<'}</span>
-              Aadi Kulshrestha
-              <span className="text-space-nebula">{' />'}</span>
+        <div className="fixed top-0 w-full z-50 px-0 md:px-6 py-0 md:py-4">
+          <nav className="w-full bg-space-dark/80 backdrop-blur-sm md:rounded-full md:shadow-lg md:shadow-space-accent/10 relative">
+            <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+              <div className="text-xl font-bold text-space-star">
+                <span className="text-space-nebula">{'<'}</span>
+                Aadi Kulshrestha
+                <span className="text-space-nebula">{' />'}</span>
+              </div>
+              
+              {/* Desktop Menu */}
+              <div className="hidden md:flex space-x-8">
+                <a href="#home" className="text-space-star hover:text-space-accent transition-colors">Home</a>
+                <a href="#projects" className="text-space-star hover:text-space-accent transition-colors">Projects</a>
+                <a href="#about" className="text-space-star hover:text-space-accent transition-colors">About</a>
+                <a href="#contact" className="text-space-star hover:text-space-accent transition-colors">Contact</a>
+              </div>
+              
+              {/* Mobile Menu Button */}
+              <button 
+                className="md:hidden text-space-star"
+                onClick={toggleMobileMenu}
+                aria-label="Toggle mobile menu"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+              </button>
             </div>
             
-            <div className="hidden md:flex space-x-8">
-              <a href="#home" className="text-space-star hover:text-space-accent transition-colors">Home</a>
-              <a href="#projects" className="text-space-star hover:text-space-accent transition-colors">Projects</a>
-              <a href="#about" className="text-space-star hover:text-space-accent transition-colors">About</a>
-              <a href="#contact" className="text-space-star hover:text-space-accent transition-colors">Contact</a>
+            {/* Mobile Menu with slide-in animation - Move outside of nav to avoid z-index issues */}
+          </nav>
+        </div>
+
+        {/* Mobile Menu moved outside the navigation container for proper z-index stacking */}
+        <div 
+          className={`md:hidden fixed inset-0 z-[100] ${
+            mobileMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'
+          }`}
+        >
+          {/* Background with opacity transition only */}
+          <div 
+            className={`absolute inset-0 bg-space-dark/95 backdrop-blur-md transition-opacity duration-300 ${
+              mobileMenuOpen ? 'opacity-100' : 'opacity-0'
+            }`}
+          ></div>
+          
+          {/* Content container with position animation only, no opacity changes */}
+          <div 
+            className={`relative h-full transform transition-transform duration-500 ease-in-out ${
+              mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
+          >
+            <div className="container mx-auto px-6 py-8 h-full flex flex-col">
+              <div className="flex justify-end mb-8">
+                <button 
+                  onClick={toggleMobileMenu}
+                  className="text-space-star hover:text-space-accent transition-colors"
+                  aria-label="Close menu"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-8 h-8">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              
+              <div className="flex flex-col space-y-8 items-center justify-center flex-grow text-2xl">
+                <a 
+                  href="#home" 
+                  className="text-space-star hover:text-space-accent transition-colors transform hover:translate-x-2 duration-200 py-2" 
+                  onClick={toggleMobileMenu} 
+                  style={{ animationDelay: '150ms' }}
+                >
+                  <span className={mobileMenuOpen ? 'animate-slideInRight' : ''}>Home</span>
+                </a>
+                <a 
+                  href="#projects" 
+                  className="text-space-star hover:text-space-accent transition-colors transform hover:translate-x-2 duration-200 py-2" 
+                  onClick={toggleMobileMenu} 
+                  style={{ animationDelay: '200ms' }}
+                >
+                  <span className={mobileMenuOpen ? 'animate-slideInRight' : ''}>Projects</span>
+                </a>
+                <a 
+                  href="#about" 
+                  className="text-space-star hover:text-space-accent transition-colors transform hover:translate-x-2 duration-200 py-2" 
+                  onClick={toggleMobileMenu} 
+                  style={{ animationDelay: '250ms' }}
+                >
+                  <span className={mobileMenuOpen ? 'animate-slideInRight' : ''}>About</span>
+                </a>
+                <a 
+                  href="#contact" 
+                  className="text-space-star hover:text-space-accent transition-colors transform hover:translate-x-2 duration-200 py-2" 
+                  onClick={toggleMobileMenu} 
+                  style={{ animationDelay: '300ms' }}
+                >
+                  <span className={mobileMenuOpen ? 'animate-slideInRight' : ''}>Contact</span>
+                </a>
+              </div>
             </div>
-            
-            <button className="md:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-              </svg>
-            </button>
           </div>
-        </nav>
+        </div>
 
         {/* Hero Section with animations */}
         <section id="home" className="min-h-screen flex items-center justify-center pt-20">
@@ -191,7 +279,7 @@ function App() {
               <span className="text-space-nebula">{' />'}</span>
             </h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8">
               {/* UW Spots Project */}
               <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1 flex flex-col h-full">
                 <div className="h-48 bg-gray-700 overflow-hidden">

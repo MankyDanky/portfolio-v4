@@ -4,4 +4,27 @@
 
 html,body {
     scroll-behavior: smooth;
+    font-family: 'Poppins', sans-serif;
+}
+
+@layer base {
+    h1, h2, h3, h4, h5, h6, p, span, a, button, input, textarea {
+        font-family: 'Poppins', sans-serif;
+    }
+}
+
+/* Add this to your index.css file */
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fadeInRight {
+  animation: fadeInRight 0.5s ease-out forwards;
 }
