@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import WaterBackground from './components/WaterBackground'
 import IceKnight from './assets/IceKnight.png'
-import InFind from './assets/InFind.png'
+import ParticleSystem from './assets/ParticleSystem.png'
 import SpaceSim from './assets/SpaceSim.png'
 import WordWeaver from './assets/WordWeaver.png'
 import ProfileImage from './assets/me.png'
@@ -342,36 +342,37 @@ function App() {
                 </div>
               </div>
               
-              {/* Word Weaver AI Project */}
+              {/* WebGPU Particle System Project */}
               <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1 flex flex-col h-full">
                 <div className="h-48 bg-gray-700 overflow-hidden">
-                  <img src={WordWeaver} alt="Word Weaver AI" className="w-full h-full object-cover" />
+                  <img src={ParticleSystem} alt="WebGPU Particle System" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Word Weaver AI</h3>
+                    <h3 className="text-xl font-semibold mb-2">WebGPU Particle System</h3>
                     <p className="text-space-star/70 mb-4">
-                      A sophisticated AI-powered essay generation platform built with Next.js and TypeScript. 
-                      Leverages Perplexity's cutting-edge Sonar model to incorporate real-time information and sources,
-                      delivering academically rigorous content. Features an advanced multi-stage workflow that generates,
-                      reviews, and refines essays through intelligent AI feedback loops.
+                      A powerful web-based particle system maker built with JavaScript and the cutting-edge WebGPU API. 
+                      Leverages advanced GPU techniques including compute shaders and GPU instancing to render 
+                      millions of particles with high performance. Features an intuitive interface for creating 
+                      and customizing dynamic particle effects with real-time parameter adjustments and 
+                      interactive visualization.
                     </p>
                   </div>
                   <div className="mt-auto">
                     <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Next.js</span>
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">TypeScript</span>
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">MongoDB</span>
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Perplexity AI</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">JavaScript</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">WebGPU</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Compute Shaders</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">GPU Instancing</span>
                     </div>
                     <div className="flex space-x-4">
-                      <a href="https://wordweaverai.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">View Demo</a>
-                      <a href="https://github.com/MankyDanky/word-weaver" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                      <a href="https://particles.onl" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">View Demo</a>
+                      <a href="https://github.com/mankydanky/particle-system" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
                     </div>
                   </div>
                 </div>
               </div>
-              
+
               {/* Ice Knight Project */}
               <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1 flex flex-col h-full">
                 <div className="h-48 bg-gray-700 overflow-hidden">
@@ -440,31 +441,32 @@ function App() {
                   </div>
                 </div>
               </div>
-              
-              {/* InFind Project */}
+
+              {/* Word Weaver AI Project */}
               <div className="bg-space-primary rounded-xl overflow-hidden shadow-lg hover:shadow-space-accent/20 transition-all hover:-translate-y-1 flex flex-col h-full">
                 <div className="h-48 bg-gray-700 overflow-hidden">
-                  <img src={InFind} alt="InFind" className="w-full h-full object-cover" />
+                  <img src={WordWeaver} alt="Word Weaver AI" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">InFind</h3>
+                    <h3 className="text-xl font-semibold mb-2">Word Weaver AI</h3>
                     <p className="text-space-star/70 mb-4">
-                      An innovative influencer discovery platform developed for the 2025 Dreamwell Hackathon. 
-                      Integrates multiple social media APIs (YouTube, Facebook, Twitter) with OpenAI's language models
-                      to deliver AI-powered brand partnership recommendations. Features sophisticated analytics to match
-                      brands with ideal influencers based on audience demographics, engagement metrics, and content alignment.
+                      A sophisticated AI-powered essay generation platform built with Next.js and TypeScript. 
+                      Leverages Perplexity's cutting-edge Sonar model to incorporate real-time information and sources,
+                      delivering academically rigorous content. Features an advanced multi-stage workflow that generates,
+                      reviews, and refines essays through intelligent AI feedback loops.
                     </p>
                   </div>
                   <div className="mt-auto">
                     <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">React</span>
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Express</span>
-                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Node.js</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Next.js</span>
                       <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">TypeScript</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">MongoDB</span>
+                      <span className="text-xs bg-space-accent/20 text-space-accent px-2 py-1 rounded-full">Perplexity AI</span>
                     </div>
                     <div className="flex space-x-4">
-                      <a href="https://github.com/MankyDanky/InFind" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
+                      <a href="https://wordweaverai.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">View Demo</a>
+                      <a href="https://github.com/MankyDanky/word-weaver" target="_blank" rel="noopener noreferrer" className="text-space-accent hover:text-space-nebula transition-colors">Source Code</a>
                     </div>
                   </div>
                 </div>
